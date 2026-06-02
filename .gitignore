@@ -1,0 +1,19 @@
+# Visual Studio
+.vs/
+x64/
+Debug/
+Release/
+*.user
+*.VC.db
+
+# Build files
+*.exe
+*.pdb
+*.ilk
+
+# Intermediate files
+Intermediate/
+
+# Windows
+Thumbs.db
+Desktop.ini
