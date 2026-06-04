@@ -1,11 +1,5 @@
 ﻿#include "stdafx.h"
-struct StageData
-{
-	int playerCharacterNumber = 0;
-	int enemyCharacterNumber = 0;
-};
-
-using App = SceneManager<String, StageData>;
+#include "Result.h"
 
 class Result : public App::Scene {
 public:
