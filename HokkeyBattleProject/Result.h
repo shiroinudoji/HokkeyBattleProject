@@ -4,5 +4,6 @@
 
 class Result : public App::Scene {
 public:
-
+	Result(const InitData& init);
+	
 };

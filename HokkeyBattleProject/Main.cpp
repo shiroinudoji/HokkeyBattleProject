@@ -3,14 +3,7 @@
 # include "Select.h"
 # include "Game.h"
 # include "Result.h"
-
-struct StageData
-{
-	int playerCharacterNumber = 0;
-	int enemyCharacterNumber = 0;
-};
-
-using App = SceneManager<String, StageData>;
+#include "Screen.h"
 
 
 
