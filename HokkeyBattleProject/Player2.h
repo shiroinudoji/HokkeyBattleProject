@@ -32,6 +32,8 @@ public:
 
 	int brockX(Pack* pack);
 
+	int brockY(Pack* pack);
+
 	void playerDraw();
 
 	void moveLeft();

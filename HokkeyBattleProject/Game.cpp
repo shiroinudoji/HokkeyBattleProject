@@ -21,6 +21,7 @@ Game::Game(const InitData& init)
 	Retry{ FontMethod::MSDF, 48 },
 	LimitBreak{ FontMethod::MSDF, 48 },
 	decided{ U"拍子木2.mp3" },
+	Vel{ Vec2{0,0} },
 	state{ 0 }
 {
 	
@@ -36,6 +37,21 @@ void Game::update()
 	player2.getVel(pack.Vel.x, pack.Vel.y);
 	Rect HP1(50, 25, player1.HP, 20);
 	Rect HP2(450, 555, player2.HP, 20);
+
+
+
+	player1.HP = pack.crash(player1, 1);
+	player2.HP = pack.crash(player2, 2);
+
+	Vel.x = player1.brockX(&pack);
+	//Vel.y = player1.brockY(&pack);
+	pack.VectorChanger(Vel);
+	Vel.x = player2.brockX(&pack);
+	//Vel.y = player2.brockY(&pack);
+	pack.VectorChanger(Vel);
+	pack.Level = player1.brockLevel(&pack);
+	pack.Level = player2.brockLevel(&pack);
+	
 
 	if (state == 0) {
 		player1.update();
@@ -70,13 +86,7 @@ void Game::update()
 	if (player2.HP > 0) {
 		HP2.draw(Palette::Yellowgreen);
 	}
-	player1.HP = pack.crash(player1, 1);
-	player2.HP = pack.crash(player2, 2);
 
-	pack.Level = player1.brockLevel(&pack);
-	pack.Vel.x = player1.brockX(&pack);
-	pack.Level = player2.brockLevel(&pack);
-	pack.Vel.x = player2.brockX(&pack);
 
 	if (state == 1) {
 		if (player2.HP <= 0) {

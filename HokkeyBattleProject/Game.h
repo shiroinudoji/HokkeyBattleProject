@@ -23,6 +23,7 @@ public:
 	Font Exit;
 	Font Retry;
 	Font LimitBreak;
+	Vec2 Vel;
 	const Audio decided;
 	int state = 0;
 	Game(const InitData& init);

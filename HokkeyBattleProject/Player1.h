@@ -13,6 +13,7 @@ public:
 	double brockLevel(Pack* pack);
 
 	int brockX(Pack* pack);
+	int brockY(Pack* pack);
 
 	void playerDraw();
 

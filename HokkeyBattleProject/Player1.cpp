@@ -113,4 +113,24 @@ int Player1::brockX(Pack* pack)
 }
 
 
+int Player1::brockY(Pack* pack)
+{
+	if (barrierCircle.intersects(pack->packCircle)) {
+		if (barriercheck > 0 && barriercheck < barrierEndTime) {
+			if (pack->Level < 0.0) {
+				return -pack->Vel.y;
+			}
+			else {
+				return pack->Vel.y;
+			}
+		}
+		else {
+			return pack->Vel.y;
+		}
+	}
+	else {
+		return pack->Vel.y;
+	}
+}
+
 

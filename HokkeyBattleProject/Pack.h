@@ -23,6 +23,8 @@ public:
 
 	void VelChanger();
 
+	void VectorChanger(Vec2);
+
 	void run();
 
 	void wall();

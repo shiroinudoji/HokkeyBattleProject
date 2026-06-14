@@ -43,6 +43,10 @@ void Pack::VelChanger() {
 
 }
 
+void Pack::VectorChanger(Vec2 Vector) {
+	Vel.x = Vector.x;
+}
+
 void Pack::run() {
 
 	Pos.x += LevelVel * Vel.x * Scene::DeltaTime();
