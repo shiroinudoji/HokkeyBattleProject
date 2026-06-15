@@ -51,7 +51,7 @@ void Game::update()
 	pack.VectorChanger(Vel);
 	pack.Level = player1.brockLevel(&pack);
 	pack.Level = player2.brockLevel(&pack);
-	
+	player1.crash(&pack);
 
 	if (state == 0) {
 		player1.update();

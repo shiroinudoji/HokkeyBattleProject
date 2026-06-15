@@ -93,7 +93,6 @@ void Pack::wall() {
 }
 
 void Pack::reflect(Vec2 playerPos) {
-	Pos = (Pos - playerPos).setLength(70) + playerPos;
 	Vel.x = (Pos.x - playerPos.x) / sqrt(70);
 	Vel.y = (Pos.y - playerPos.y) / sqrt(70);
 }
@@ -146,9 +145,7 @@ int Pack::crash(Player player, int playerType) {
 	}
 }
 
-bool Pack::crashR(Player player) {
-	return packCircle.intersects(player.playerCircle);
-}
+
 
 int  Pack::battle(int HP) {
 	int temp;
