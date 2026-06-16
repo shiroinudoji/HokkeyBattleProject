@@ -12,6 +12,7 @@ Player::Player(s3d::Vec2 Pos_)
 	Vel{0,0},
 	playerCircle{ Pos, 35 },
 	barrierCircle{ Pos, 55 },
+	weak{ U"打撃1.mp3" },
 	parry{ U"剣で打ち合う4.mp3" }
 {}
 
@@ -28,9 +29,16 @@ void Player::move() {
 }
 
 
-
-
 void Player::playerDraw() {
 
 }
+
+
+void Player::HPChanger(double HPtmp) {
+	if (HP != HPtmp) {
+		weak.play();
+		HP = HPtmp;
+	}
+}
+
 

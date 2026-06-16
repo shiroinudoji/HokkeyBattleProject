@@ -24,6 +24,7 @@ public:
 	Font Retry;
 	Font LimitBreak;
 	Vec2 Vel;
+	double HPtmp[2];
 	const Audio decided;
 	int state = 0;
 	Game(const InitData& init);

@@ -4,7 +4,7 @@ Game::Game(const InitData& init)
 	:IScene{ init },
      player1{Vec2{ 100, 300 }},
 	player2{ Vec2{ 700, 300 }},
-	pack{ Vec2{ 200, 300 }},
+	pack{ Vec2{ 300, 300 }},
 	Menu0{ Rect(0, 0, 800, 70) },
 	Menu1{ Rect(0, 530, 800, 70) },
 	subHP1{ Rect(50, 25, 300, 20) },
@@ -22,6 +22,7 @@ Game::Game(const InitData& init)
 	LimitBreak{ FontMethod::MSDF, 48 },
 	decided{ U"拍子木2.mp3" },
 	Vel{ Vec2{0,0} },
+	HPtmp{ 0, 0},
 	state{ 0 }
 {
 	
@@ -40,8 +41,10 @@ void Game::update()
 
 
 
-	player1.HP = pack.crash(player1, 1);
-	player2.HP = pack.crash(player2, 2);
+	HPtmp[0] = pack.crash(player1, 1);
+	player1.HPChanger(HPtmp[0]);
+	HPtmp[1] = pack.crash(player2, 2);
+	player2.HPChanger(HPtmp[1]);
 
 	Vel.x = player1.brockX(&pack);
 	//Vel.y = player1.brockY(&pack);
@@ -96,6 +99,7 @@ void Game::update()
 			LimitBreak(U"Lで難易度アップしてもう一回"_fmt()).draw(25, Vec2{ 200, 375 }, Palette::Pink);
 		}
 		if (KeyR.down()) {
+			pack.Pos = (pack.Pos - player2.Pos).setLength(70) + player2.Pos;
 			player1.HP = 300;
 			player2.HP = 300;
 			pack.Level = 0;
@@ -104,13 +108,15 @@ void Game::update()
 			player2.Pos.x = 700;
 			player2.Pos.y = 300;
 			player2.firsttouch = true;
-			pack.Pos.x = 200;
+			pack.Pos.x = 300;
 			pack.Pos.y = 300;
 			pack.Vel.x = 0;
 			pack.Vel.y = 0;
+			Vel = { 0,0 };
 			state = 0;
 		}
 		if (KeyL.down()) {
+			pack.Pos = (pack.Pos - player2.Pos).setLength(70) + player2.Pos;
 			player1.HP = 300;
 			player2.HP = 300;
 			pack.Level = 0;
@@ -119,10 +125,11 @@ void Game::update()
 			player2.Pos.x = 700;
 			player2.Pos.y = 300;
 			player2.firsttouch = true;
-			pack.Pos.x = 200;
+			pack.Pos.x = 300;
 			pack.Pos.y = 300;
 			pack.Vel.x = 0;
 			pack.Vel.y = 0;
+			Vel = { 0,0 };
 			player2.Limitbreak();
 			state = 0;
 		}
@@ -135,6 +142,7 @@ void Game::update()
 			Retry(U"RでRetry"_fmt()).draw(25, Vec2{ 200, 350 }, Palette::Purple);
 		}
 		if (KeyR.down()) {
+			pack.Pos = (pack.Pos - player1.Pos).setLength(70) + player1.Pos;
 			player1.HP = 300;
 			player2.HP = 300;
 			pack.Level = 0;
@@ -143,10 +151,11 @@ void Game::update()
 			player2.Pos.x = 700;
 			player2.Pos.y = 300;
 			player2.firsttouch = true;
-			pack.Pos.x = 200;
+			pack.Pos.x = 300;
 			pack.Pos.y = 300;
 			pack.Vel.x = 0;
 			pack.Vel.y = 0;
+			Vel = { 0,0 };
 			state = 0;
 		}
 	}

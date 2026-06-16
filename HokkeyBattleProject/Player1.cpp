@@ -135,7 +135,8 @@ int Player1::brockY(Pack* pack)
 
 void  Player1::crash(Pack* pack) {
 	if (playerCircle.intersects(pack->packCircle)) {
-		if(pack->Pos.x<35 || pack->Pos.x > 765 || pack->Pos.y < 105 || pack->Pos.y > 495)
-		Pos = (Pos - pack->Pos).setLength(70) + pack->Pos;
+		if (pack->Pos.x < 35 || pack->Pos.x > 765 || pack->Pos.y < 105 || pack->Pos.y > 495) {
+			Pos = (Pos - pack->Pos).setLength(70) + pack->Pos;
+		}
 	}
 }

@@ -12,7 +12,6 @@ Pack::Pack(s3d::Vec2 Pos_)
 	packSubCircle{ Pos, 17 },
 	counter{ 1 },
 	crashcheck{ 1 },
-    weak{ U"打撃1.mp3" },
     powerUp{ U"決定ボタンを押す49.mp3" },
 	lastTouch{ 0 }
 {}
@@ -48,7 +47,7 @@ void Pack::VectorChanger(Vec2 Vector) {
 }
 
 void Pack::run() {
-
+	
 	Pos.x += LevelVel * Vel.x * Scene::DeltaTime();
 	Pos.y += LevelVel * Vel.y * Scene::DeltaTime();
 }
@@ -93,6 +92,11 @@ void Pack::wall() {
 }
 
 void Pack::reflect(Vec2 playerPos) {
+	if (Pos.x > 35 && Pos.x < 765 && Pos.y > 105 && Pos.y < 495) {
+		if (Pos.distanceFrom(playerPos) < 65) {
+			Pos = (Pos - playerPos).setLength(70) + playerPos;
+		}
+	}
 	Vel.x = (Pos.x - playerPos.x) / sqrt(70);
 	Vel.y = (Pos.y - playerPos.y) / sqrt(70);
 }
@@ -161,7 +165,6 @@ int  Pack::battle(int HP) {
 		else if (Level < 0.0 && lastTouch == 1) {
 			temp = (HP - damage());
 			Level = 1.0;
-			weak.play();
 			return temp;
 		}
 		else if (lastTouch == 1) {
@@ -180,7 +183,6 @@ int  Pack::battle(int HP) {
 		else if (Level > 0.0 && lastTouch == 2) {
 			temp = (HP - damage());
 			Level = -1.0;
-			weak.play();
 			return temp;
 		}
 		else if (lastTouch == 2) {

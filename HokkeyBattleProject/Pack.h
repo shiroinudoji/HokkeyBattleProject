@@ -13,7 +13,6 @@ public:
 	Circle packSubCircle;
 	int counter;
 	int crashcheck;
-	const Audio weak;
 	const Audio powerUp;
 	int lastTouch;
 

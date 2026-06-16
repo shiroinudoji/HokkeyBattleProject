@@ -52,5 +52,7 @@ public:
 	void chase();
 
 	void move()override;
+
+	void crash(Pack* pack);
 };
 
