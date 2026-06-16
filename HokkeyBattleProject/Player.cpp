@@ -34,11 +34,7 @@ void Player::playerDraw() {
 }
 
 
-void Player::HPChanger(double HPtmp) {
-	if (HP != HPtmp) {
-		weak.play();
-		HP = HPtmp;
-	}
-}
+
+
 
 

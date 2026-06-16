@@ -10,6 +10,6 @@ void Title::update()
 {
 	Scene::SetBackground(Palette::Green);
 	if (KeySpace.down()) {
-		changeScene(U"Select", 1s);
+		changeScene(U"Game", 1s);
 	}
 }

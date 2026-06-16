@@ -14,7 +14,8 @@ Player2::Player2(s3d::Vec2 Pos_)
 	underLimit{ -2 },
 	UpDownKey{ 0 },
 	firsttouch{ true },
-	barrierSign{ false }
+	barrierSign{ false },
+	secondCounter{0}
 {
 }
 void Player2::update() {
@@ -36,6 +37,9 @@ void Player2::getVel(double x, double y) {
 	packVel.x = x;
 	packVel.y = y;
 }
+
+
+
 
 void Player2::barrier() {
 	barrierCircle = { Pos, 55 };
@@ -106,11 +110,12 @@ void Player2::moveSelect() {
 }
 
 void Player2::Limitbreak() {
-	barrierLimiter++;
-	underLimit++;
+	barrierLimiter += 2;
+	underLimit += 2;
 }
 
 void Player2::chase() {
+	secondCounter += Scene::DeltaTime();
 	if (Level == 0.0 && firsttouch) {
 
 		if (UpDownKey >= 0 && UpDownKey < 30) {
@@ -183,11 +188,13 @@ void Player2::chase() {
 			}
 		}
 	}
-	if (sqrt(pow((Pos.x - pack.x), 2) + pow((Pos.y - pack.y), 2)) < 87 + barrierSkill && Level > 0) {
-		barrierSign = true;
-	}
-	else {
-		barrierSign = false;
+	if (secondCounter >= 0.001) {
+		if (sqrt(pow((Pos.x - pack.x), 2) + pow((Pos.y - pack.y), 2)) < 70 + barrierSkill && Level > 0) {
+			barrierSign = true;
+		}
+		else {
+			barrierSign = false;
+		}
 	}
 }
 
@@ -258,7 +265,14 @@ double Player2::brockLevel(Pack* pack)
 }
 void  Player2::crash(Pack* pack) {
 	if (playerCircle.intersects(pack->packCircle)) {
-		if (pack->Pos.x < 35 || pack->Pos.x > 765 || pack->Pos.y < 105 || pack->Pos.y > 495)
+		if (pack->Pos.x < 33 || pack->Pos.x > 767 || pack->Pos.y < 103 || pack->Pos.y > 497)
 			Pos = (Pos - pack->Pos).setLength(70) + pack->Pos;
+	}
+}
+
+void Player2::HPChanger(double HPtmp) {
+	if (HP != HPtmp) {
+		weak.play();
+		HP = HPtmp;
 	}
 }

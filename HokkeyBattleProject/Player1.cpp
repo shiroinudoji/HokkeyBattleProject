@@ -140,3 +140,10 @@ void  Player1::crash(Pack* pack) {
 		}
 	}
 }
+
+void Player1::HPChanger(double HPtmp) {
+	if (HP != HPtmp) {
+		weak.play();
+		HP = HPtmp;
+	}
+}

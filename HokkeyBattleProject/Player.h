@@ -13,6 +13,7 @@ public:
 	Circle barrierCircle;
 	const Audio parry;
 	const Audio weak;
+
 	Player(s3d::Vec2 Pos_);
 
 	int getHP();
@@ -20,8 +21,6 @@ public:
 	virtual void update();
 
 	virtual void move();
-
-	void HPChanger(double);
 
 	void playerDraw();
 };

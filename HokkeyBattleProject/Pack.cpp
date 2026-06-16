@@ -93,8 +93,8 @@ void Pack::wall() {
 
 void Pack::reflect(Vec2 playerPos) {
 	if (Pos.x > 35 && Pos.x < 765 && Pos.y > 105 && Pos.y < 495) {
-		if (Pos.distanceFrom(playerPos) < 65) {
-			Pos = (Pos - playerPos).setLength(70) + playerPos;
+		if(Pos.distanceFrom(playerPos) < 60){
+		Pos = 0.99*(Pos - playerPos).setLength(70) + playerPos;
 		}
 	}
 	Vel.x = (Pos.x - playerPos.x) / sqrt(70);

@@ -11,13 +11,13 @@ void Main()
 {
 	App manager;
 
-	manager.add<Title>(U"Title");
+	//manager.add<Title>(U"Title");
 
-	manager.add<Select>(U"Select");
+	//manager.add<Select>(U"Select");
 
 	manager.add<Game>(U"Game");
 
-	manager.add<Result>(U"Result");
+	//manager.add<Result>(U"Result");
 
 
 

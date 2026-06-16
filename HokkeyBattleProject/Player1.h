@@ -21,6 +21,8 @@ public:
 	void move();
 
 	void crash(Pack* pack);
+
+	void HPChanger(double);
 };
 
 

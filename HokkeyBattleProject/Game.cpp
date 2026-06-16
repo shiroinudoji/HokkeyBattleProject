@@ -4,7 +4,7 @@ Game::Game(const InitData& init)
 	:IScene{ init },
      player1{Vec2{ 100, 300 }},
 	player2{ Vec2{ 700, 300 }},
-	pack{ Vec2{ 300, 300 }},
+	pack{ Vec2{ 250, 300 }},
 	Menu0{ Rect(0, 0, 800, 70) },
 	Menu1{ Rect(0, 530, 800, 70) },
 	subHP1{ Rect(50, 25, 300, 20) },
@@ -41,11 +41,6 @@ void Game::update()
 
 
 
-	HPtmp[0] = pack.crash(player1, 1);
-	player1.HPChanger(HPtmp[0]);
-	HPtmp[1] = pack.crash(player2, 2);
-	player2.HPChanger(HPtmp[1]);
-
 	Vel.x = player1.brockX(&pack);
 	//Vel.y = player1.brockY(&pack);
 	pack.VectorChanger(Vel);
@@ -55,8 +50,14 @@ void Game::update()
 	pack.Level = player1.brockLevel(&pack);
 	pack.Level = player2.brockLevel(&pack);
 	player1.crash(&pack);
+	player2.crash(&pack);
 
 	if (state == 0) {
+
+		HPtmp[0] = pack.crash(player1, 1);
+		player1.HPChanger(HPtmp[0]);
+		HPtmp[1] = pack.crash(player2, 2);
+		player2.HPChanger(HPtmp[1]);
 		player1.update();
 		player2.update();
 		pack.update();
@@ -79,7 +80,7 @@ void Game::update()
 	subHP1.draw(Palette::Red);
 	subHP2.draw(Palette::Red);
 	player1Label(U"player1"_fmt()).draw(25, Vec2{ 370, 20 }, Palette::Black);
-	player2Label(U"CPU Lv{}"_fmt(player2.barrierLimiter - 1)).draw(25, Vec2{ 330, 550 }, Palette::Black);
+	player2Label(U"CPU Lv{}"_fmt(player2.barrierLimiter/2)).draw(25, Vec2{ 330, 550 }, Palette::Black);
 	Tips(U"WASDで移動!Enterでバリアで反射ができる!"_fmt()).draw(15, Vec2{ 0 ,0 }, Palette::Black);
 
 
@@ -92,14 +93,12 @@ void Game::update()
 
 
 	if (state == 1) {
-		if (player2.HP <= 0) {
-			player1Win(U"You Win!!"_fmt()).draw(50, Vec2{ 200, 275 }, Palette::Pink);
+		if (player2.HP <= 0) {		player1Win(U"You Win!!"_fmt()).draw(50, Vec2{ 200, 275 }, Palette::Pink);
 			Exit(U"Escapeで終了"_fmt()).draw(25, Vec2{ 200, 325 }, Palette::Pink);
 			Retry(U"RでRetry"_fmt()).draw(25, Vec2{ 200, 350 }, Palette::Pink);
 			LimitBreak(U"Lで難易度アップしてもう一回"_fmt()).draw(25, Vec2{ 200, 375 }, Palette::Pink);
 		}
 		if (KeyR.down()) {
-			pack.Pos = (pack.Pos - player2.Pos).setLength(70) + player2.Pos;
 			player1.HP = 300;
 			player2.HP = 300;
 			pack.Level = 0;
@@ -108,7 +107,7 @@ void Game::update()
 			player2.Pos.x = 700;
 			player2.Pos.y = 300;
 			player2.firsttouch = true;
-			pack.Pos.x = 300;
+			pack.Pos.x = 250;
 			pack.Pos.y = 300;
 			pack.Vel.x = 0;
 			pack.Vel.y = 0;
@@ -116,7 +115,6 @@ void Game::update()
 			state = 0;
 		}
 		if (KeyL.down()) {
-			pack.Pos = (pack.Pos - player2.Pos).setLength(70) + player2.Pos;
 			player1.HP = 300;
 			player2.HP = 300;
 			pack.Level = 0;
@@ -125,7 +123,7 @@ void Game::update()
 			player2.Pos.x = 700;
 			player2.Pos.y = 300;
 			player2.firsttouch = true;
-			pack.Pos.x = 300;
+			pack.Pos.x = 250;
 			pack.Pos.y = 300;
 			pack.Vel.x = 0;
 			pack.Vel.y = 0;
@@ -137,12 +135,12 @@ void Game::update()
 
 	if (state == 2) {
 		if (player1.HP <= 0) {
+			
 			player2Win(U"You Lose..."_fmt()).draw(50, Vec2{ 200, 275 }, Palette::Purple);
 			Exit(U"Escapeで終了"_fmt()).draw(25, Vec2{ 200, 325 }, Palette::Purple);
 			Retry(U"RでRetry"_fmt()).draw(25, Vec2{ 200, 350 }, Palette::Purple);
 		}
 		if (KeyR.down()) {
-			pack.Pos = (pack.Pos - player1.Pos).setLength(70) + player1.Pos;
 			player1.HP = 300;
 			player2.HP = 300;
 			pack.Level = 0;
@@ -151,7 +149,7 @@ void Game::update()
 			player2.Pos.x = 700;
 			player2.Pos.y = 300;
 			player2.firsttouch = true;
-			pack.Pos.x = 300;
+			pack.Pos.x = 250;
 			pack.Pos.y = 300;
 			pack.Vel.x = 0;
 			pack.Vel.y = 0;

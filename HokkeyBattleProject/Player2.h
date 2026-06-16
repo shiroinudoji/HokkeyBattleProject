@@ -15,6 +15,7 @@ public:
 	int barrierLimiter;
 	int underLimit;
 	int  UpDownKey;
+	double secondCounter;
 	bool firsttouch;
 	bool barrierSign;
 	Player2(s3d::Vec2 Pos_);
@@ -54,5 +55,7 @@ public:
 	void move()override;
 
 	void crash(Pack* pack);
+
+	void HPChanger(double);
 };
 
