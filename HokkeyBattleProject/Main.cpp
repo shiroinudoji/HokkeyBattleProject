@@ -11,7 +11,7 @@ void Main()
 {
 	App manager;
 
-	//manager.add<Title>(U"Title");
+	manager.add<Title>(U"Title");
 
 	//manager.add<Select>(U"Select");
 

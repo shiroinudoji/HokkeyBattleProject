@@ -11,6 +11,8 @@ Game::Game(const InitData& init)
 	subHP2{ Rect(450, 555, 300, 20) },
 	HP1{ Rect(50, 25, player1.HP, 20) },
 	HP2{ Rect(450, 555, player2.HP, 20) },
+	line{ Rect(399,0,2,600) },
+	result{ Rect(800,250,400,150) },
 	player1Label{ FontMethod::MSDF, 48 },
     player2Label{ FontMethod::MSDF, 48 },
 	player1Win{ FontMethod::MSDF, 48 },
@@ -41,19 +43,19 @@ void Game::update()
 
 
 
-	Vel.x = player1.brockX(&pack);
-	//Vel.y = player1.brockY(&pack);
-	pack.VectorChanger(Vel);
-	Vel.x = player2.brockX(&pack);
-	//Vel.y = player2.brockY(&pack);
-	pack.VectorChanger(Vel);
-	pack.Level = player1.brockLevel(&pack);
-	pack.Level = player2.brockLevel(&pack);
-	player1.crash(&pack);
-	player2.crash(&pack);
-
+	
+	line.draw();
 	if (state == 0) {
-
+		Vel.x = player1.brockX(&pack);
+		//Vel.y = player1.brockY(&pack);
+		pack.VectorChanger(Vel);
+		Vel.x = player2.brockX(&pack);
+		//Vel.y = player2.brockY(&pack);
+		pack.VectorChanger(Vel);
+		pack.Level = player1.brockLevel(&pack);
+		pack.Level = player2.brockLevel(&pack);
+		player1.crash(&pack);
+		player2.crash(&pack);
 		HPtmp[0] = pack.crash(player1, 1);
 		player1.HPChanger(HPtmp[0]);
 		HPtmp[1] = pack.crash(player2, 2);
@@ -79,6 +81,7 @@ void Game::update()
 	Menu1.draw();
 	subHP1.draw(Palette::Red);
 	subHP2.draw(Palette::Red);
+	
 	player1Label(U"player1"_fmt()).draw(25, Vec2{ 370, 20 }, Palette::Black);
 	player2Label(U"CPU Lv{}"_fmt(player2.barrierLimiter/2)).draw(25, Vec2{ 330, 550 }, Palette::Black);
 	Tips(U"WASDで移動!Enterでバリアで反射ができる!"_fmt()).draw(15, Vec2{ 0 ,0 }, Palette::Black);
@@ -93,12 +96,19 @@ void Game::update()
 
 
 	if (state == 1) {
-		if (player2.HP <= 0) {		player1Win(U"You Win!!"_fmt()).draw(50, Vec2{ 200, 275 }, Palette::Pink);
-			Exit(U"Escapeで終了"_fmt()).draw(25, Vec2{ 200, 325 }, Palette::Pink);
-			Retry(U"RでRetry"_fmt()).draw(25, Vec2{ 200, 350 }, Palette::Pink);
-			LimitBreak(U"Lで難易度アップしてもう一回"_fmt()).draw(25, Vec2{ 200, 375 }, Palette::Pink);
+		if (move < 625) {
+			move += 10;
+		}
+		Rect result{ 800 - move,250,400,175 };
+		result.draw();
+		if (player2.HP <= 0) {
+			player1Win(U"You Win!!"_fmt()).draw(50, Vec2{ 825 - move, 275 }, Palette::Red);
+			Exit(U"Escapeで終了"_fmt()).draw(25, Vec2{ 825 - move, 325 }, Palette::Red);
+			Retry(U"RでRetry"_fmt()).draw(25, Vec2{ 825 - move, 350 }, Palette::Red);
+			LimitBreak(U"Lで難易度アップしてもう一回"_fmt()).draw(25, Vec2{ 825 - move, 375 }, Palette::Red);
 		}
 		if (KeyR.down()) {
+			move = 0;
 			player1.HP = 300;
 			player2.HP = 300;
 			pack.Level = 0;
@@ -115,6 +125,7 @@ void Game::update()
 			state = 0;
 		}
 		if (KeyL.down()) {
+			move = 0;
 			player1.HP = 300;
 			player2.HP = 300;
 			pack.Level = 0;
@@ -136,11 +147,17 @@ void Game::update()
 	if (state == 2) {
 		if (player1.HP <= 0) {
 			
-			player2Win(U"You Lose..."_fmt()).draw(50, Vec2{ 200, 275 }, Palette::Purple);
-			Exit(U"Escapeで終了"_fmt()).draw(25, Vec2{ 200, 325 }, Palette::Purple);
-			Retry(U"RでRetry"_fmt()).draw(25, Vec2{ 200, 350 }, Palette::Purple);
+			if (move < 625) {
+				move += 10;
+			}
+			Rect result{ 800 - move,250,400,150 };
+			result.draw();
+			player2Win(U"You Lose..."_fmt()).draw(50, Vec2{825-move, 275 }, Palette::Black);
+			Exit(U"Escapeで終了"_fmt()).draw(25, Vec2{ 825-move, 325 }, Palette::Black);
+			Retry(U"RでRetry"_fmt()).draw(25, Vec2{ 825-move, 350 }, Palette::Black);
 		}
 		if (KeyR.down()) {
+			move = 0;
 			player1.HP = 300;
 			player2.HP = 300;
 			pack.Level = 0;

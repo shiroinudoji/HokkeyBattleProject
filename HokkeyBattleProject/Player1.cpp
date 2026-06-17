@@ -42,7 +42,7 @@ void Player1::move() {
 	}
 
 	if (KeyD.pressed()) {
-		if (330 < Pos.x) {
+		if (360 < Pos.x) {
 
 		}
 		else {

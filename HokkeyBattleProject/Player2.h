@@ -44,7 +44,6 @@ public:
 	void moveUp();
 
 	void moveDown();
-	
 
 	void moveSelect();
 

@@ -14,6 +14,8 @@ public:
 	Rect subHP2;
 	Rect HP1;
 	Rect HP2;
+	Rect line;
+	Rect result;
 	Font player1Label;
 	Font player2Label;
 	Font player1Win;
@@ -24,6 +26,7 @@ public:
 	Font Retry;
 	Font LimitBreak;
 	Vec2 Vel;
+	int move = 0;
 	double HPtmp[2];
 	const Audio decided;
 	int state = 0;

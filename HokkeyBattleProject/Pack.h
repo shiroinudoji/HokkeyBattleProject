@@ -35,6 +35,7 @@ public:
 	int crash(Player player, int playerType);
 
 	bool crashR(Player player);
+
 	int  battle(int HP);
 
 	int damage();
